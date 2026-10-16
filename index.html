@@ -59,7 +59,7 @@
         <div id="adminPanel" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-lg font-semibold text-gray-700"><i class="fa-solid fa-chart-pie text-indigo-600"></i> Общая статистика</h2>
-                <button onclick="resetData()" class="text-red-600 hover:text-red-800 text-sm font-medium">Сбросить все статусы</button>
+                <div class="flex gap-3 items-center"><button onclick="exportCSV()" class="text-indigo-600 hover:text-indigo-800 text-sm font-medium">Экспорт CSV</button><button onclick="resetData()" class="text-red-600 hover:text-red-800 text-sm font-medium">Сбросить все статусы</button></div>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
@@ -87,36 +87,6463 @@
 
     <!-- Подвал -->
     <footer class="text-center py-4 text-xs text-gray-400">
-        Ala-Too IT & Business College &copy; 2026
+        Ala-Too IT & Business College &copy; 2026 · Данные статусов сохраняются в этом браузере
     </footer>
 
     <script>
         // База данных студентов по курсам и группам
         const studentsData = [
-            // В этом файле пока доступны только исходные тестовые записи.
-            // Для полного списка студентов и кураторов требуется импортировать исходный Excel.
-            { id: "268712020", name: "Акбаров Ихсан Шухратович", course: "1", group: "ACO-26", curator: "", passed: false },
-            { id: "268712015", name: "Айбекова Жанара Айбековна", course: "1", group: "ACO-26", curator: "", passed: false },
-            { id: "268712002", name: "Алманбетова Гульназ Айбековна", course: "1", group: "ACO-26", curator: "", passed: false },
-            { id: "268715001", name: "Абдыкайымов Белек", course: "1", group: "SCA-26A", curator: "", passed: false },
-            { id: "268715003", name: "Аманов Адилет", course: "1", group: "SCA-26A", curator: "", passed: false },
-            { id: "268716005", name: "Гладков Мирон", course: "1", group: "FLET-26", curator: "", passed: false },
-            { id: "268716007", name: "Жакшылыкова Умай", course: "1", group: "FLET-26", curator: "", passed: false },
-            { id: "268717021", name: "Шералиев Арсен", course: "1", group: "CFL-26", curator: "", passed: false },
-            { id: "268717022", name: "Ыманкулов Ырыскелди", course: "1", group: "CFL-26", curator: "", passed: false },
-            { id: "258712001", name: "Бакытов Эльдар", course: "2", group: "ACO-25", curator: "", passed: false },
-            { id: "258712002", name: "Касымова Айпери", course: "2", group: "ACO-25", curator: "", passed: false },
-            { id: "258715001", name: "Сагынбеков Дастан", course: "2", group: "SCA-25A", curator: "", passed: false },
-            { id: "248712001", name: "Усенов Бектур", course: "3", group: "ACO-24", curator: "", passed: false },
-            { id: "248715001", name: "Жумагулов Тимур", course: "3", group: "SCA-24A", curator: "", passed: false }
-        ];
+    {
+        "id": "268712020",
+        "name": "Акбаров Ихсан Шухратович",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712015",
+        "name": "Айбекова Жанара Айбековна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712002",
+        "name": "Алманбетова Гульназ Айбековна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712012",
+        "name": "Асылбекова Аделя Асылбековна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712018",
+        "name": "Байышева Аяна Рустамовна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712022",
+        "name": "Бекташова Сауле Асылбековна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712010",
+        "name": "Божокоев Жантай Максатович",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712017",
+        "name": "Горчевский Ярослав Владимирович",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712003",
+        "name": "Джумгалбеков Арслан",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712025",
+        "name": "Замирбекова Салия Замирбековна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712004",
+        "name": "Кадыркулова Кунайым Шергазиевна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712016",
+        "name": "Кенжебекова Сезим Мирбековна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712011",
+        "name": "Климбекова Сэдеф Эдилевна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712007",
+        "name": "Койчукеев Атай Майрамбекович",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712013",
+        "name": "Кубанычбекова Алия Максатовна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712019",
+        "name": "Кылычбеков Амир Бусурманкулович",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712014",
+        "name": "Ловаза Медина Мухамеевна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712024",
+        "name": "Темирбекова Аяна Эрланова",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712021",
+        "name": "Мусаев Хазрат Кайратович",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712008",
+        "name": "Манапбаева Арууке Дженишбековна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712023",
+        "name": "Мамыров Ураим Курмангазыевич",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712009",
+        "name": "Марсов Ербол Ерланович",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712006",
+        "name": "Мирзаева Лейла Вилаятовна",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "268712001",
+        "name": "Фаридов Ариф Фаридович",
+        "course": "1",
+        "group": "ACO-26",
+        "passed": false,
+        "curator": "Nurzhan Nazarkulova"
+    },
+    {
+        "id": "Student ID",
+        "name": "SCA-26A Dosbol Aliev",
+        "course": "1",
+        "group": "Группа /",
+        "passed": false,
+        "curator": "КУРАТОР"
+    },
+    {
+        "id": "268715001",
+        "name": "Абдыкайымов Белек",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715003",
+        "name": "Аманов Адилет",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715012",
+        "name": "Аманова Медина",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715023",
+        "name": "Бакаев Абакир",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715020",
+        "name": "Бектуров Алихан",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715005",
+        "name": "Берюев Эмирхан",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715032",
+        "name": "Гуламов Акбар",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715021",
+        "name": "Имашбеков Амир",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715010",
+        "name": "Исмаилов Актан",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715014",
+        "name": "Канатбеков Эдил",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715013",
+        "name": "Койбагаров Кайрат",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715015",
+        "name": "Кыдыкбаев Эрмек",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715006",
+        "name": "Лансаров Юсуф",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715011",
+        "name": "Мамашарипов Нурэл",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715017",
+        "name": "Мелисов Нурбол",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715018",
+        "name": "Мусуралиев Нурсултан",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715009",
+        "name": "Нышанова Адиля",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715016",
+        "name": "Рысбаев Айдар",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715022",
+        "name": "Рыскелдиева Бегимай",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715004",
+        "name": "Салиев Салим",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715019",
+        "name": "Тажиев Нурмухамед",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715008",
+        "name": "Замирбекова Мирель",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715007",
+        "name": "Жапараалыева Малика",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "268715002",
+        "name": "Эсеналиев Атай",
+        "course": "1",
+        "group": "SCA-26A",
+        "passed": false,
+        "curator": "Dosbol Aliev"
+    },
+    {
+        "id": "Student ID",
+        "name": "SCA-26B",
+        "course": "1",
+        "group": "Группа /",
+        "passed": false,
+        "curator": "КУРАТОР"
+    },
+    {
+        "id": "268715031",
+        "name": "Аблаева Рузанна",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715043",
+        "name": "Айдаров Рамзан",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715029",
+        "name": "Айтакунов Эрбол",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715030",
+        "name": "Ажыгулов Максат",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715041",
+        "name": "Арзиева Хадича",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715034",
+        "name": "Багачарова Айтурган",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715038",
+        "name": "Джуманалиев Актан",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715036",
+        "name": "Кадырбеков Бекхан",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715033",
+        "name": "Керимкулов Адиль",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715046",
+        "name": "Кожахматов Нурислам",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715045",
+        "name": "Кубатбеков Аманбол",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715026",
+        "name": "Кырманчиев Нурдан",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715037",
+        "name": "Муратбеков Имран",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715040",
+        "name": "Маратбеков Умар",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715042",
+        "name": "Маратов Байэл",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715039",
+        "name": "Нурбеков Аман",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715028",
+        "name": "Нурланова Айчурок",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715035",
+        "name": "Осмонакунов Нурэл",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715027",
+        "name": "Саматов Аманбек",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715025",
+        "name": "Суранаева Айзирек",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715048",
+        "name": "Торубаев Жоодарбегим",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715024",
+        "name": "Турунбеков Исхак",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268715044",
+        "name": "Жолдошбеков Эмир",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "268710012",
+        "name": "Жээнбеков Шахан",
+        "course": "1",
+        "group": "SCA-26B",
+        "passed": false,
+        "curator": "Azizbek Karimov"
+    },
+    {
+        "id": "Student ID",
+        "name": "ФИО",
+        "course": "1",
+        "group": "Группа /",
+        "passed": false,
+        "curator": "КУРАТОР"
+    },
+    {
+        "id": "268715060",
+        "name": "Абдиманнапов Ибрахим",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715055",
+        "name": "Абдылдаев Эмир",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715062",
+        "name": "Абытанов Атабек",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715071",
+        "name": "Алыбеков Ариет",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715069",
+        "name": "Амандыков Эмир",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715067",
+        "name": "Амантуров Айман",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715059",
+        "name": "Аширматкулов Нур-Ислам",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715049",
+        "name": "Бейшеналиев Сыргак",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715066",
+        "name": "Жаналиев Илим",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715061",
+        "name": "Жанышов Жоомарт",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715068",
+        "name": "Исманов Салман",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715057",
+        "name": "Камчыбеков Нурэл",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715072",
+        "name": "Касымбекова Зейнеп",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715070",
+        "name": "Кочкунбеков Алинур",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715065",
+        "name": "Курванбеков Нурислам",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715054",
+        "name": "Мааткаримов Чынгыз",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715058",
+        "name": "Майрамбаев Абдуразак",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715053",
+        "name": "Наматбеков Акылес",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715063",
+        "name": "Русланов Рахим",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715051",
+        "name": "Сабыралиева Аяна",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715056",
+        "name": "Тюбеева Сезим",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715064",
+        "name": "Уланбеков Нуртилек",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715050",
+        "name": "Замирбеков Ильяс",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268715052",
+        "name": "Эсенбаев Ардак",
+        "course": "1",
+        "group": "SCA-26C",
+        "passed": false,
+        "curator": "Talant Arystanov"
+    },
+    {
+        "id": "268710022",
+        "name": "Аманбаев Уларбек Нурланбекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710008",
+        "name": "Антошкин Тимур Денисович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710002",
+        "name": "Антошкина Ксения Павловна",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710009",
+        "name": "Асанбеков Эльдар Назбекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710005",
+        "name": "Аскарбеков Бексултан Бактыбекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710020",
+        "name": "Бейшембеков Нурбол Маратович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710010",
+        "name": "Бектуров Бексултан Толобекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710017",
+        "name": "Джумаков Элдияр Алмасбекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710018",
+        "name": "Дуйшобеков Эмир Уланович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710004",
+        "name": "Жоомартбеков Нурсултан Мухамедович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710007",
+        "name": "Калчабаев Мукаш Эрланович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710025",
+        "name": "Каримов Самир Фирдавсович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710013",
+        "name": "Кармышов Эрнис Тилекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710021",
+        "name": "Касымбеков Баястан Маликович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710024",
+        "name": "Нарынбеков Адахан Азизбекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710011",
+        "name": "Нурова Кыял Нуровна",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710016",
+        "name": "Орозбаев Эрасыл Айбекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710001",
+        "name": "Садыров Азамат Панзатбекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710003",
+        "name": "Супруненко Никита Борисович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710014",
+        "name": "Темирбеков Алим Максатович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710006",
+        "name": "Торобеков Атай Уланович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710026",
+        "name": "Турсунбеков Али Таалайбекович",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710015",
+        "name": "Тынчтыкбекова Милана Эмиловна",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268710019",
+        "name": "Шайыков Жандар",
+        "course": "1",
+        "group": "CSC-26",
+        "passed": false,
+        "curator": "Erbol Bolushev"
+    },
+    {
+        "id": "268711007",
+        "name": "Абдыкапарова Райана",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711019",
+        "name": "Айбекова Сезим",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711003",
+        "name": "Албарсбеков Камил",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711025",
+        "name": "Алиева Надия",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711017",
+        "name": "Алсеитова Арууке",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711005",
+        "name": "Амангелдиев Чагатай",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711018",
+        "name": "Аманкожоев Алинур",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711022",
+        "name": "Бактыбекова Айзат",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711016",
+        "name": "Базарбаев Юсуп",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711002",
+        "name": "Дайиева Азияна",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711024",
+        "name": "Карагулова Акбийке",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711009",
+        "name": "Ким Алексей",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711012",
+        "name": "Кылычбеков Назар",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711004",
+        "name": "Мамаджанова Шахрия",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711014",
+        "name": "Мелисов Али",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711020",
+        "name": "Муратова Бермет",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711015",
+        "name": "Назаров Эдуард",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711011",
+        "name": "Райымбеков Чингис",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711013",
+        "name": "Сакенова Баяна",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711006",
+        "name": "Сапарбаева Сайкал",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711008",
+        "name": "Сулейманов Амир",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711010",
+        "name": "Тимурбекова Дарина",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "268711001",
+        "name": "Токторбаев Актан",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "А -  Aigerim Akusheva"
+    },
+    {
+        "id": "NOID-1-Группа-не-указана-Шеров-Амирхан",
+        "name": "Шеров Амирхан",
+        "course": "1",
+        "group": "Группа не указана",
+        "passed": false
+    },
+    {
+        "id": "268711042",
+        "name": "Аалыев Ариет",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711036",
+        "name": "Акмырзаев Муслим",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711041",
+        "name": "Асыранкулова Ясмина",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711046",
+        "name": "Абдубалиева Ажара",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268710023",
+        "name": "Анарбеков Салымбек",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711028",
+        "name": "Бекболотова Аима",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711037",
+        "name": "Джолдошева Диана",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711045",
+        "name": "Эркинбеков Нуртегин",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711035",
+        "name": "Иманалиева Адилай",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711044",
+        "name": "Камчыбеков Жабраил",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711047",
+        "name": "Касымбеков Алинур",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711021",
+        "name": "Нургазиева Аруна",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711043",
+        "name": "Мунарбеков Баянбек",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711030",
+        "name": "Мусаева Нуркыз",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711029",
+        "name": "Назарбекова Жанэль",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711031",
+        "name": "Омургожоева Аина",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711039",
+        "name": "Ренатов Алихан",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711033",
+        "name": "Русланова Сезим",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711027",
+        "name": "Рыскулова Раяна",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711038",
+        "name": "Саламатова Амаль",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711032",
+        "name": "Шакарбекова Айдай",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711023",
+        "name": "Шамбетова Суйуу",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268711049",
+        "name": "Шерматова Аксаамай",
+        "course": "1",
+        "group": "DES 26",
+        "passed": false,
+        "curator": "B -  Aidana Abylova"
+    },
+    {
+        "id": "268714018",
+        "name": "Абдыкадыров Ислам",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714009",
+        "name": "Аширова Керемет",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714006",
+        "name": "Бактыбекова Улара",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714010",
+        "name": "Борубаев Нурболот",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714007",
+        "name": "Джакыпов Таир",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714012",
+        "name": "Джайсанова Амина",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714004",
+        "name": "Эмильбеков Ормон",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714019",
+        "name": "Имаров Нурислам",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714029",
+        "name": "Исамдунова Насиба",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714014",
+        "name": "Кадыракунова Айдана",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268718003",
+        "name": "Кадырова Айдай",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714023",
+        "name": "Камалова Назик",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714016",
+        "name": "Кантемиров Орхан-Эсад",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714021",
+        "name": "Касымов Билал",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714008",
+        "name": "Кубатов Илгиз",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714002",
+        "name": "Манасбеков Аслан",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714015",
+        "name": "Мукамбетов Баястан",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714011",
+        "name": "Назарбеков Алманбет",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714020",
+        "name": "Нурдинов Байнур",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714003",
+        "name": "Салиева Хафиза",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714047",
+        "name": "Сабирова Малика",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714017",
+        "name": "Советбеков Эрмек",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714013",
+        "name": "Сыдыков Нурэл",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714001",
+        "name": "Уланбеков Али",
+        "course": "1",
+        "group": "MAR-26A",
+        "passed": false,
+        "curator": "Murat Dzhaparov"
+    },
+    {
+        "id": "268714026",
+        "name": "Абдылдабеков Толкунбек",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714037",
+        "name": "Азизбекова Фатима",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714039",
+        "name": "Айтбаев Амирбек",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714032",
+        "name": "Алтымбаев Эмир",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714030",
+        "name": "Ахлидинов Алихан",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714025",
+        "name": "Базаров Амир",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714028",
+        "name": "Бекмурзаева Айбийке",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714035",
+        "name": "Жапаралиева Аруука",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714036",
+        "name": "Жапаралиева Айбийке",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714042",
+        "name": "Закиржанов Артур",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714024",
+        "name": "Кадыров Самир",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714031",
+        "name": "Каимов Темирлан",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714043",
+        "name": "Каныбекова Элая",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714046",
+        "name": "Ким Алия",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714027",
+        "name": "Момунбаева Арина",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714048",
+        "name": "Сагынбеков Чоро",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714041",
+        "name": "Советбекова Акбермет",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714045",
+        "name": "Сүйүнбекова Адриана",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714005",
+        "name": "Токтосунова Назик",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714040",
+        "name": "Тологонов Алмазбек",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714033",
+        "name": "Усонбаева Элина",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714044",
+        "name": "Шарипбаев Байыш",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714038",
+        "name": "Шербеков Эмир",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268714034",
+        "name": "Юсупов Икрамбек",
+        "course": "1",
+        "group": "MAR-26B",
+        "passed": false,
+        "curator": "Salidat Isaeva"
+    },
+    {
+        "id": "268718006",
+        "name": "Абдижалилова Айзирек",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718027",
+        "name": "Абдимиталипова Марям",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718028",
+        "name": "Азаматова Сезим",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718024",
+        "name": "Акматов Нурдолот",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718016",
+        "name": "Акылбекова Арууке",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718026",
+        "name": "Атамкулова Даяна",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718021",
+        "name": "Бегматова Айдеми",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718022",
+        "name": "Женишбеков Умар",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718007",
+        "name": "Каныбеков Байаман",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718019",
+        "name": "Кубанычбеков Айдин",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718011",
+        "name": "Кубанычбеков Шерден",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718018",
+        "name": "Кыргызбаев Бексултан",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718023",
+        "name": "Манасбеков Ырыскелди",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718020",
+        "name": "Медерова Айяна",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718025",
+        "name": "Омурова Гузеля",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718009",
+        "name": "Орозбеков Майна",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718015",
+        "name": "Осмонова Айдана",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718014",
+        "name": "Сапаев Шакир",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718005",
+        "name": "Сапарбекова Акылай",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718001",
+        "name": "Сыдыкова Адина",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718008",
+        "name": "Сыпарбеков Ибраим",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718017",
+        "name": "Чотуев Нурсултан",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268718010",
+        "name": "Шигаев Ибрагим",
+        "course": "1",
+        "group": "CMN-26",
+        "passed": false,
+        "curator": "Mannap uulu Nurlan"
+    },
+    {
+        "id": "268717018",
+        "name": "Асапов Усман",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717013",
+        "name": "Бакытбекова Айгерим",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717009",
+        "name": "Бекбергенов Алихан",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717001",
+        "name": "Гасанов Мухаммад-Али",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717019",
+        "name": "Кабылов Эмирхан",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717014",
+        "name": "Кадыралиева Мадина",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717017",
+        "name": "Калыева Элима",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717020",
+        "name": "Кочконбаев Абдулвахид",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717003",
+        "name": "Кошубакова Амина",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717006",
+        "name": "Кылычбекова Айбийке",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717005",
+        "name": "Максатбекова Умайа",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717010",
+        "name": "Маратов Эмир",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717008",
+        "name": "Осмонова Аселя",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717007",
+        "name": "Райканова Амина",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717016",
+        "name": "Рустамова Алтынай",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717015",
+        "name": "Рыскулбеков Байаман",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717012",
+        "name": "Советбекова Айдай",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717011",
+        "name": "Шаршенбекова Айназик",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717021",
+        "name": "Шералиев Арсен",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717022",
+        "name": "Ыманкулов Ырыскелди",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717004",
+        "name": "Эдигеева Саадат",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268717002",
+        "name": "Эркинбекова Айлуун",
+        "course": "1",
+        "group": "CFL-26",
+        "passed": false,
+        "curator": "Salia Kurmanova"
+    },
+    {
+        "id": "268716005",
+        "name": "Гладков Мирон",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716007",
+        "name": "Жакшылыкова Умай",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716019",
+        "name": "Женишбекова Назик",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716006",
+        "name": "Жумабекова Нурайым",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716009",
+        "name": "Изатова Анэля",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716008",
+        "name": "Кенжебаева Айзирек",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716021",
+        "name": "Кыязова Алина",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716001",
+        "name": "Лансарова Ясмина",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716002",
+        "name": "Муктарбекова Алтынай",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716004",
+        "name": "Муктарова Нургуль",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716012",
+        "name": "Садиева Нурсаида",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716013",
+        "name": "Садыков Акжол",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716020",
+        "name": "Сатаркулова Элина",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716018",
+        "name": "Сатынбекова Адинай",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716015",
+        "name": "Сейитканов Чынгыз",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716010",
+        "name": "Султанбек Актан",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716014",
+        "name": "Турганалиев Ильяз",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716003",
+        "name": "Турумкулова Бактыгул",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716011",
+        "name": "Уланова Алтынай",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "268716022",
+        "name": "Шамшиева Мариям",
+        "course": "1",
+        "group": "FLET-26",
+        "passed": false,
+        "curator": "Aizada Mambetsadykova"
+    },
+    {
+        "id": "258715026",
+        "name": "Абыков Өмурбек Тургунбекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715020",
+        "name": "Абдыкайымова Асема Абдыкайымовна",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715017",
+        "name": "Адылов Нурислам Алмазбекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715015",
+        "name": "Акылбаев Байэл Мирланович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715005",
+        "name": "Акылбекова Айтурган",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715001",
+        "name": "Алмазов Искандер Улугбекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715025",
+        "name": "Аралбаев Эржан Салабатович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715045",
+        "name": "Бакинов  Нурсултан Русланович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715002",
+        "name": "Женишев Нияз Кайратович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715018",
+        "name": "Жусубалиев Алмаз Жаныбекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715003",
+        "name": "Исабекова Алтынай Нарынбековна",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715004",
+        "name": "Кайратов Кутман Кайратович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715032",
+        "name": "Кайыпкулов Ислам Кубатович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715013",
+        "name": "Кыдыров Нуран Нурланович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715030",
+        "name": "Маликова Нагима Маликовна",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715009",
+        "name": "Мамедов Шамиль Саттарович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715011",
+        "name": "Муратова Радийа Руслановна",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715048",
+        "name": "Муслимов Эрбол Айбекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715008",
+        "name": "Ниязов Аманбек Нурбекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715019",
+        "name": "Сагыналиев Мират Кайратович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715072",
+        "name": "Салижанов Мирбек Жанарбекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715014",
+        "name": "Саткынова Айдана Ринатовна",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715036",
+        "name": "Эркинов Атай Айбекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715021",
+        "name": "Эркинов Атай Аабекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "258715007",
+        "name": "Чоконов Ислам Жайлообекович",
+        "course": "2",
+        "group": "SCA25A",
+        "passed": false,
+        "curator": "SUYUNBEK SHERMATOV"
+    },
+    {
+        "id": "Student ID",
+        "name": "SCA25B",
+        "course": "1",
+        "group": "Группа /",
+        "passed": false,
+        "curator": "КУРАТОР"
+    },
+    {
+        "id": "258715050",
+        "name": "Абасбеков Нурхан Мелисович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715033",
+        "name": "Абдиманапов Байкут Өмурбекович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715078",
+        "name": "Манапов Абдували Саматбекович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715022",
+        "name": "Адылгазиева Жаркынай Нургазиевна",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715039",
+        "name": "Акимканов Актан Маратович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715023",
+        "name": "Анарбаева Амина Азаматовна",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715034",
+        "name": "Аскаров Абылай Аскарович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715041",
+        "name": "Давлетбеков Ариет Кымбатбекович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715043",
+        "name": "Джапаров Атабек Даниярович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715051",
+        "name": "Жаныбаев Элхан Русланович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715074",
+        "name": "Жекшалиев Адинур Аманатович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715042",
+        "name": "Жекшенов Нурэл Мирбекович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715006",
+        "name": "Зунунова Рамина",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715052",
+        "name": "Ибраимов Амир Темирович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715046",
+        "name": "Кадырбаев Бакдөлөт Акылбекович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715047",
+        "name": "Карыбеков Нурболот Рахатович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715029",
+        "name": "Маматибраимов Айбек Бактыбекович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715038",
+        "name": "Манасбаев Алижан Жанатович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715031",
+        "name": "Маматкадыров Нурдөөлөт Аскаралиевич",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715040",
+        "name": "Муктаров Бакытжан Муктарович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715044",
+        "name": "Разгуляева Зарина Владимировна",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715037",
+        "name": "Рустамов Эркин Рустамович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715028",
+        "name": "Суранбеков Кутбол Бактыбаевич",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715035",
+        "name": "Таштанов Мансур Эркинбекович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "258715067",
+        "name": "Токтобеков Бекбол Бердигулович",
+        "course": "2",
+        "group": "SCA25B",
+        "passed": false,
+        "curator": "DASTAN SATYBAEV"
+    },
+    {
+        "id": "Student ID",
+        "name": "SCA25C",
+        "course": "1",
+        "group": "Группа /",
+        "passed": false,
+        "curator": "КУРАТОР"
+    },
+    {
+        "id": "258715058",
+        "name": "Абдымаликов Байбол Жаныбекович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715024",
+        "name": "Абдыназарова Гулзар Нурлановна",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715053",
+        "name": "Абыкеева Айжамал Урматовна",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715055",
+        "name": "Бактыбеков Нурдөөлөт Русланович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715073",
+        "name": "Жумабаев Айдос Авазович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715076",
+        "name": "Колпочов Угузбек Жанарбекович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715061",
+        "name": "Кожонов Курманбек Алмазович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715063",
+        "name": "Кубатбеков Алишер",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "268715073",
+        "name": "Табылдиев Нургазы",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715069",
+        "name": "Мамразаков Нурислам Адиевич",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715070",
+        "name": "Мэлсбеков Умар Айбековича",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715064",
+        "name": "Омурзаков Уран Бакытович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258707002",
+        "name": "Орозбекова Айша Анварбековна",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715057",
+        "name": "Райымбеков Ислам Шукурбекович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715068",
+        "name": "Рыскулов Алинур Дастанович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715059",
+        "name": "Сулейманова Айжана Азаматовна",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715075",
+        "name": "Тагаев Улук Маратович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258711030",
+        "name": "Мансурова Сирена Кожоярова",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715056",
+        "name": "Токталиев Асман Нурланбекович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715066",
+        "name": "Толонбаев Умар Алмазбекович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258716015",
+        "name": "Дуулатбеков Искендер Уланович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "258715060",
+        "name": "Юрьев Бактыкул Айбекович",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "268715075",
+        "name": "Орозбаева Айзат",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "268715074",
+        "name": "Арапбаев Эльхан",
+        "course": "2",
+        "group": "SCA25C",
+        "passed": false,
+        "curator": "KUBANYCH DZHYRGALBEKOV"
+    },
+    {
+        "id": "Student ID",
+        "name": "ФИО",
+        "course": "1",
+        "group": "Группа /",
+        "passed": false,
+        "curator": "КУРАТОР"
+    },
+    {
+        "id": "258710004",
+        "name": "Арсен Нурэль",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710021",
+        "name": "Асыпбеков Абай Эрадилович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710012",
+        "name": "Бообеков Актан Бекназарович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710007",
+        "name": "Жакшыбеков Адилхан Нурбекович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258715071",
+        "name": "Камилдинов Даниел Акимбаевич",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710002",
+        "name": "Кожобеков Нурбол Султанбекович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710006",
+        "name": "Маликов Азимбек Эркинович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710009",
+        "name": "Масалбеков Элхан Айбекович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710014",
+        "name": "Муйдинов Мухаммад Мухтарович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710023",
+        "name": "Муратбеков Нурболот Азисович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710022",
+        "name": "Нанаев Артур Талгарович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710003",
+        "name": "Сарыажиев Жантай Эмилевич",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710020",
+        "name": "Темирбеков Гульчоро Мирланович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710001",
+        "name": "Тургуналиев Адилхан Бактыбекович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710005",
+        "name": "Узаков Эрик Узакович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710016",
+        "name": "Өмүрканов Эмир Бакирович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710010",
+        "name": "Чотуев Нурэл Сталбекович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258710013",
+        "name": "Шамбетов Байэл Сагынбекович",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258715010",
+        "name": "Нурова Милана Нуровна",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258715054",
+        "name": "Турдалиева Арууке",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "268710027",
+        "name": "Мукасов Муслим",
+        "course": "2",
+        "group": "CSC-25",
+        "passed": false,
+        "curator": "AKYLAI URAIMZHAN KYZY"
+    },
+    {
+        "id": "258711008",
+        "name": "Алмазбекова Амина Уланбековна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711016",
+        "name": "Багишбеков Бакай Сардарбекович",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711010",
+        "name": "Байышова Диана",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711017",
+        "name": "Бейшенкулов Элдар Адилетович",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711011",
+        "name": "Жаныгулова Элина Алмазбековна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258714091",
+        "name": "Жекшенбеков Байэл Улукбекович",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711028",
+        "name": "Корчубекова Айым Эмильевна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711009",
+        "name": "Медеров Айдар Талантович",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711023",
+        "name": "Нуржанова Бермет Алмазовна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711015",
+        "name": "Рахматулин Дастан Аскатович",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711013",
+        "name": "Сабырбекова Назира Эдиковна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711027",
+        "name": "Советова Аймончок Сырткуловна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711005",
+        "name": "Талипова Ханифа Кэхрмановна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711006",
+        "name": "Талипова Тасним Даврановна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711019",
+        "name": "Тилекматов Сармат Акылбекович",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711029",
+        "name": "Жакыпова Раяна Сталбековна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711007",
+        "name": "Турарова Камила Эркинбековна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711025",
+        "name": "Уметалиева Камиля Руслановна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711020",
+        "name": "Шаршенбаев Медет Нурдинович",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711022",
+        "name": "Чекиров Нур-Рахим Намазбекович",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258715062",
+        "name": "Ташиева Айдана Давлатбековна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258715027",
+        "name": "Башыбекова Анара Назарбековна",
+        "course": "2",
+        "group": "DES-25",
+        "passed": false,
+        "curator": "A   Nurzada Ergeshova"
+    },
+    {
+        "id": "258711041",
+        "name": "Абдыкапаров Нурдаулет Майсалбекович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711048",
+        "name": "Абдулдаева Гаухар Эркиновна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711035",
+        "name": "Азарбеков Сулайман Келдибекович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711026",
+        "name": "Алтымышев Айдар Уланович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711042",
+        "name": "Асанов Бакай Эрнисович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711032",
+        "name": "Ашимова Раяна Саматовна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711021",
+        "name": "Курманова Ясмин Насреддиновна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711024",
+        "name": "Замиров Каныбек Кубанычбекович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711034",
+        "name": "Исмаилов Азат Майрамбекович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258714089",
+        "name": "Камчыбеков Нурболот Алмазбекович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711001",
+        "name": "Канаев Булат Нурбекович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711046",
+        "name": "Кафар Айко Улановна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711038",
+        "name": "Малдыбаева Карина Долоновна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711002",
+        "name": "Матиев Данис Эркинович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711049",
+        "name": "Мукасова Айдеми Руслановна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258714087",
+        "name": "Назаркулов Ибирагим Чынгызович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711004",
+        "name": "Орозбаков Баястан Нурланович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711043",
+        "name": "Токтомбекова Аделина Темирбековна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711003",
+        "name": "Туратбеков Айдин Азаматович",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711045",
+        "name": "Тургуналиева Аделя Абдибадитовна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711033",
+        "name": "Ысманова Гулиза Разыкуловна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258710024",
+        "name": "Белекова Айдана Азаматовна",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "268711050",
+        "name": "Насиров Эмир",
+        "course": "2",
+        "group": "DES-25В",
+        "passed": false,
+        "curator": "Nargiza Kutmanova"
+    },
+    {
+        "id": "258711018",
+        "name": "Токташ Мээрим Идаятовна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712016",
+        "name": "Айтматов Шерхан Чынгызович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712007",
+        "name": "Асылбеков Азирет Уланович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712011",
+        "name": "Асангазыева Саадат үсөнбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712014",
+        "name": "Асамбаева Бермет Таалайбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712004",
+        "name": "Глушков Даниил Ярославович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712013",
+        "name": "Данияров Эльдар Даниярович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712015",
+        "name": "Дубанакулов Азамат Акматалиевич",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712019",
+        "name": "Жаныбеков Дамир Жаныбекович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712001",
+        "name": "Кубанычбеков Ильгиз",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712010",
+        "name": "Кубанычбекова Канышай Кубанычбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712002",
+        "name": "Малдышева Айым Максатовна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712003",
+        "name": "Муратбеков Эльдар Русланович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712022",
+        "name": "Солтонбеков Султан Айбекович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712023",
+        "name": "Сыдыкова Салтанат Нурбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712024",
+        "name": "Талиева Бермет Медетбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712006",
+        "name": "Токоев Омар Булатович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712009",
+        "name": "Турдуева Ажар Улановна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712018",
+        "name": "Төрөгелдиева Аймира Талантбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712012",
+        "name": "Усенова Алия Стамбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712021",
+        "name": "Үсөнбекова Үмүт Садырбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712008",
+        "name": "Хасанбаев Сархан Рустамович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712017",
+        "name": "Шаршенбекова Айжан Жаныбековна",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258712020",
+        "name": "Ысакулов Бийтегин Жоодарович",
+        "course": "2",
+        "group": "ACO25",
+        "passed": false,
+        "curator": "AIZADA OMURKULOVA"
+    },
+    {
+        "id": "258714012",
+        "name": "Анарбеков Айбек Мыктыбекович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714013",
+        "name": "Асанбекова Сезим Шайлообековна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714015",
+        "name": "Асылбекова Жылдыз Руслановна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714065",
+        "name": "Акжигитов Ислам Замирбекович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714023",
+        "name": "Байтереков Нурбол Кубанычбекович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714022",
+        "name": "Баходирова Саадат Айбековна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714010",
+        "name": "Бекболотова Тамерис Азаматовна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714017",
+        "name": "Жаркынбаева Аэлита Самагановна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714005",
+        "name": "Карабаев Абдулла Эрнисович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714001",
+        "name": "Качиев Алискер",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714008",
+        "name": "Кубатов Сардарбек Азаматович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714029",
+        "name": "Маматова Айбике Муратовна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714002",
+        "name": "Русланов Нариман Русланович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714006",
+        "name": "Садыкова Бермет Эмирлановна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714095",
+        "name": "Султанбеков Амантай Султанбекович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714007",
+        "name": "Токтобаева Айгүнсулуу Тимуровна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714018",
+        "name": "Токтогулов Имран Эмильевич",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714021",
+        "name": "Тургунбекова Мунира Бийгазиевна",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714056",
+        "name": "Уранов Элхан Мирбекович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714004",
+        "name": "Эсенсалитов Атай Кубатбекович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258714099",
+        "name": "Шакиров Арслан Мирланович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258711040",
+        "name": "Шакиров Мухаммадфотих Шухратиллович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258711050",
+        "name": "Сейитбеков Нуртай Роланович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "258716032",
+        "name": "Эшенкулов Дилмурат Ибраимович",
+        "course": "2",
+        "group": "MAR25A",
+        "passed": false,
+        "curator": "NURZADA BAKTYBEKOVA"
+    },
+    {
+        "id": "248714048",
+        "name": "Абылкасымова Тамара Тойчуевна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714032",
+        "name": "Адилетова Арзу Адилетовна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714040",
+        "name": "Аманов Байтегин Кабаевич",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714031",
+        "name": "Асиретжанов Эмирхан Азатбекович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714038",
+        "name": "Асылбеков Иляс Мирланович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714030",
+        "name": "Бактыяров Алидар Уланович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714034",
+        "name": "Жапаралиева Аделя Рысбековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "258714043",
+        "name": "Вудуньян Ясмина",
+        "course": "2",
+        "group": "MAR25Б",
+        "passed": false,
+        "curator": "ZHYLDYZ INDIGARAEVA"
+    },
+    {
+        "id": "248714044",
+        "name": "Зулпукоров Жанадиль Бакытович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714029",
+        "name": "Ибрагимова Акылзат Элдосовна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714047",
+        "name": "Каландаров Абдушафи Ахматжанович",
+        "course": "2",
+        "group": "MAR25Б",
+        "passed": false,
+        "curator": "ZHYLDYZ INDIGARAEVA"
+    },
+    {
+        "id": "248714036",
+        "name": "Каптагаева Арууке Кубанычевна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714045",
+        "name": "Карымшакова Айбике Сеитбековна",
+        "course": "2",
+        "group": "MAR25Б",
+        "passed": false,
+        "curator": "ZHYLDYZ INDIGARAEVA"
+    },
+    {
+        "id": "248714028",
+        "name": "Маматбаева Амина Тилековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714025",
+        "name": "Намазбеков Эмир Алмазбекович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714035",
+        "name": "Ниетбекова Айбийке Айбековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714033",
+        "name": "Осмонова Тасним Мамбетовна",
+        "course": "2",
+        "group": "MAR25Б",
+        "passed": false,
+        "curator": "ZHYLDYZ INDIGARAEVA"
+    },
+    {
+        "id": "248714039",
+        "name": "Саалиева Айым Мирлановна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "268714049",
+        "name": "Байышова Бермет",
+        "course": "2",
+        "group": "MAR25Б",
+        "passed": false,
+        "curator": "ZHYLDYZ INDIGARAEVA"
+    },
+    {
+        "id": "248714024",
+        "name": "Суванов Эльдар Эркинович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714046",
+        "name": "Ташбеков Сыргакбек Бексултанович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714001",
+        "name": "Тынчтыков Расул Тынчтыкович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714041",
+        "name": "Туркменов Адилет Нурланович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "258714071",
+        "name": "Эсенов Алихан Нурдинович",
+        "course": "2",
+        "group": "MAR25Б",
+        "passed": false,
+        "curator": "ZHYLDYZ INDIGARAEVA"
+    },
+    {
+        "id": "258714069",
+        "name": "Абасова Аима Алмазовна",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714059",
+        "name": "Акымбекова Бегимай Мирлановна",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714052",
+        "name": "Айбек Сафия",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714011",
+        "name": "Айтматова Жамиля Уланычбековна",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714063",
+        "name": "Асылбеков Султан Нурзатович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714097",
+        "name": "Асыкбеков Али Алмазович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714060",
+        "name": "Бекахмет Аяна Нурлан кызы",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714092",
+        "name": "Беккулуев Бакдөөлөт Мелисбекович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714061",
+        "name": "Едилбекова Сумайа Урматовна",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714066",
+        "name": "Ильязов Санжар Мирбекович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714050",
+        "name": "Иманалиев Бекзат Таалайбекович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714096",
+        "name": "Калмаматов Зафар Замирович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714057",
+        "name": "Калыков Назар Жаныбекович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714064",
+        "name": "Мамбеталиев Байтур Рафикович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714055",
+        "name": "Маткулова Алина",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714073",
+        "name": "Мирланова Маналь Мирлановна",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714062",
+        "name": "Морозова Эллада-Беатрис Гиоргевна",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714070",
+        "name": "Муратов Бекзат Улукбекович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714075",
+        "name": "Раимкулов Даниэль Байышович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714072",
+        "name": "Салиева Сафия Рустамовна",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714058",
+        "name": "Султанов Муслим Медербекович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258714068",
+        "name": "Усупова Эркинай Жаныбековна",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258710008",
+        "name": "Бектуров Адилет Бектурович",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "268714050",
+        "name": "Янг Минхи",
+        "course": "2",
+        "group": "MAR25C",
+        "passed": false,
+        "curator": "ALIA ABDRALIEVA"
+    },
+    {
+        "id": "258710011",
+        "name": "Абдыкадыров Бексултан Нурмукамбедович",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714082",
+        "name": "Абдижалилова Жасмина Белековна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714080",
+        "name": "Абдиева Айза Таалайбековна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714090",
+        "name": "Абдыкеева Жанайым Тимуровна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714079",
+        "name": "Абжапарова Жасмина",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714093",
+        "name": "Акматжанов Эмин Мурадылович",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714051",
+        "name": "Анарбаева Айжан Смаиловна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714088",
+        "name": "Ашимов Жакшылык Эрболотович",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714094",
+        "name": "Джамгырчиев Байэл Кубанычбекович",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714081",
+        "name": "Жекшалиев Алинур Аманатович",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714016",
+        "name": "Жусупова Бегимай Шайырбекова",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714086",
+        "name": "Исакова Акылай Нурлановна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714077",
+        "name": "Кырманчиев Алихан Абаевич",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714076",
+        "name": "Кырманчиев Абдурахман Азаматович",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714083",
+        "name": "Муктарбекова Калича Рахатбековна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714003",
+        "name": "Потапова Валентина Ильинична",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258711037",
+        "name": "Рахманбердиева Айсымал Нургазыевна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714074",
+        "name": "Рахматова Каныкей Бекташевна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714084",
+        "name": "Рысбекова Айдана Сапарбековна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714067",
+        "name": "Сагыналиев Абдусамад Уланбекович",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714085",
+        "name": "Улукбек кызы Рабия",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258714025",
+        "name": "Ысмаилова Айзирек Алтынбековна",
+        "course": "2",
+        "group": "MAR25D",
+        "passed": false,
+        "curator": "Aiperi Toktosunova"
+    },
+    {
+        "id": "258716014",
+        "name": "Асилова Дильнура Данияровна",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716010",
+        "name": "Джакшылыкова Айсель Алмазовна",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716003",
+        "name": "Дубашов Эрназар",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716008",
+        "name": "Жумаматов Марсель Ильязович",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716004",
+        "name": "Исмаилова Эсма Азаматовна",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716007",
+        "name": "Каюмова Аэлина Абдуллаевна",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716001",
+        "name": "Кубанычбеков Бектур Акылбекович",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716013",
+        "name": "Кубатбеков Арафат Канатович",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716019",
+        "name": "Кубанычбеков Адамбек Ааламбекович",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716033",
+        "name": "Максутов Абдувахид Талгатович",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716011",
+        "name": "Рустамова Айдеми Рустамовна",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716012",
+        "name": "Сайнидинов Тобокел-Ишенаалы Эмилевич",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716006",
+        "name": "Самиева Сезим Арноловна",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716009",
+        "name": "Советбеков Данияр Максатович",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716005",
+        "name": "Турусбекова Айназик Турусбековна",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716002",
+        "name": "Уманова Раяна",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258711036",
+        "name": "Абдыразакова Айканыш Айбекова",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "268716026",
+        "name": "Токторалиева Айназик",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "260311043",
+        "name": "Эрнисов Келдибек",
+        "course": "2",
+        "group": "FLET-25A",
+        "passed": false,
+        "curator": "NURZAT USUPOVA"
+    },
+    {
+        "id": "258716016",
+        "name": "Токтогулов Азирет Асатович",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716017",
+        "name": "Кабылбеков Бексултан Кайырбекович",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716020",
+        "name": "Нуртаева Лаура Ержановна",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716021",
+        "name": "Осмонов Эрхан Гулжигитович",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716022",
+        "name": "Шаршеева Нурай Кубанычбековна",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716023",
+        "name": "Эрланбеков Ислам Эрланбекович",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716026",
+        "name": "Кулубаева Эльанора",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716024",
+        "name": "Шейшенбеков Мухаммадали Замирович",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716031",
+        "name": "Узакбаева Аиша Талантбековна",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716025",
+        "name": "Исабеков Альберт Айбекович",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716027",
+        "name": "Бейшекеева Айжан Кулматовна",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716028",
+        "name": "Досанов Нурислам Муратбекович",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716029",
+        "name": "Исмаилова Аделия Альтаировна",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258712005",
+        "name": "Абдыкеримова Нуржибек",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258715049",
+        "name": "Абдуманнобов Самандар Сардарбекович",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "258716034",
+        "name": "Джакшилыков Сардар",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "268716023",
+        "name": "Нургазиева Адинай",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "268716025",
+        "name": "Бакай Дуйшенбеков",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "268716027",
+        "name": "Назарбекова Арууке",
+        "course": "2",
+        "group": "FLET-25B",
+        "passed": false,
+        "curator": "Nurzada Kartaeva"
+    },
+    {
+        "id": "248715014",
+        "name": "Абакиров Алишер Джамбулович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715010",
+        "name": "Абдрасулов Манас Айдинович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715022",
+        "name": "Анарбеков Нуртилек Айбекович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715004",
+        "name": "Арабаев Искак Манасбекович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715002",
+        "name": "Асыкбаев Эрбол Бакытбекович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715016",
+        "name": "Батыров Адилет Азаматович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715017",
+        "name": "Болотбеков Алибек Айбекович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715015",
+        "name": "Именов Шахмухамад Турсунович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715011",
+        "name": "Кабылбаева Аделя Арабидиновна",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715072",
+        "name": "Кадырова Диана Уланбековна",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715005",
+        "name": "Кенешбеков Узар Нурланович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715018",
+        "name": "Мамутов Даниель Жумабаевич",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715023",
+        "name": "Мондошов Азирет Тимурович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715021",
+        "name": "Мягких Алексей Денисович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715020",
+        "name": "Омуркулов Амир Бакытбекович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715006",
+        "name": "Өкүмбекова Марьям Бектуровна",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715013",
+        "name": "Паизов Баястан Азаматович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715024",
+        "name": "Самарканова Сезим Айбековна",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715019",
+        "name": "Токтогулов Атай Эрчубакович",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715009",
+        "name": "Тугөлбаева Айза Кубанычбековна",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "248715007",
+        "name": "Усонкулова Жанель Нурлановна",
+        "course": "3",
+        "group": "SCA24A",
+        "passed": false,
+        "curator": "Женишбек Орозахунов"
+    },
+    {
+        "id": "Student ID",
+        "name": "ФИО",
+        "course": "1",
+        "group": "Группа /",
+        "passed": false,
+        "curator": "КУРАТОР"
+    },
+    {
+        "id": "248715028",
+        "name": "Абасканов Искендер Эрмекович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715033",
+        "name": "Абдраев Иса Болотович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715048",
+        "name": "Алланбайев Азимжан Акмалжонович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715032",
+        "name": "Асанбеков Улукбек Кенжебекович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715045",
+        "name": "Басаров Шамиль Рамазанович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715030",
+        "name": "Бектенова Беназир Сыргаковна",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715044",
+        "name": "Джаирбеков Чынгыз Нурланович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715034",
+        "name": "Исмаилахунова Амина Хаджиевна",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715035",
+        "name": "Искендербеков Алихан Бакытович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715036",
+        "name": "Искендеров Арсен Айбекович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715043",
+        "name": "Касымов Айкол Эмилбекович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715047",
+        "name": "Керимбеков Тилек Нурдинович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715026",
+        "name": "Меденов Азамат Төрөкулович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248710007",
+        "name": "Муканбетов Аликбек Кубанычбекович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715038",
+        "name": "Омаров Жанболот Жаркынбекович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715037",
+        "name": "Раимбекова Малика Шүкүрбековна",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715049",
+        "name": "Рахманов Азирет Амантурович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715046",
+        "name": "Сальмин Абдурахман Наджи Мохаммед Саид",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715001",
+        "name": "Султаналиев Эльдияр Муратбекович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715029",
+        "name": "Тилебалдиева Алия Майрамбековна",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715025",
+        "name": "Токтогулов Арсен Эрмекович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715031",
+        "name": "Тюлькиев Ален Асхатович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715039",
+        "name": "Шаршенбеков Аяз Азаматович",
+        "course": "3",
+        "group": "SCA-24B",
+        "passed": false,
+        "curator": "Эмилбек Жолдошбеков"
+    },
+    {
+        "id": "248715062",
+        "name": "Амантаев Эржан Мирбекович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715064",
+        "name": "Бакаев Бексултан Рахатбекович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715070",
+        "name": "Бердибеков Нурбол Эрланович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715057",
+        "name": "Джумашов Миржан Бахтиярович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715050",
+        "name": "Дүйшөгулов Ашырхан Бакытбекович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715069",
+        "name": "Жумакадыров Анарбек Азаматович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715071",
+        "name": "Ибрагимов Руслан Рафигович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715068",
+        "name": "Исаков Ильгиз Алмасбекович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715060",
+        "name": "Канатбеков Айдын Алтынбекович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715061",
+        "name": "Кубанычбеков Оомат Ильясович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248714063",
+        "name": "Киргизбаев Бекнур Омурбекович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715065",
+        "name": "Молдожанов Эржан Кубанович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715051",
+        "name": "Оморбеков Эмирлан Эрмекбайевич",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715067",
+        "name": "Омуралиев Санжар Нурбекович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715040",
+        "name": "Онурова Азалия Самыйбековна",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715052",
+        "name": "Сагынбеков Бекзат Алмазович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715066",
+        "name": "Саламатов Ахмед Саламатович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "258715077",
+        "name": "Сапаралиев Элдар",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715056",
+        "name": "Токтосунов Эльмар Канатбекович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248715058",
+        "name": "Туратбеков Нуртай Мелисович",
+        "course": "3",
+        "group": "SCA-24С",
+        "passed": false,
+        "curator": "Хадижа Хажжаж"
+    },
+    {
+        "id": "248710017",
+        "name": "Абдуллаева Асема Алмазбековна",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710018",
+        "name": "Азизмуратов Эмир Азизмуратович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710003",
+        "name": "Алишеров Илим Алишерович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710004",
+        "name": "Анышбекова Акбермет Анышбековна",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248715054",
+        "name": "Аскарбеков Нурбол Рустамович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710013",
+        "name": "Байышбеков Чынгыз Талайбекович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710008",
+        "name": "Жумакматов Суйунбек Кубатович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248715073",
+        "name": "Жусуев Даниель Рашитович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710019",
+        "name": "Замиров Миррад Бактыярович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710021",
+        "name": "Зарлыков Эрбешим Миндалыевич",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248715041",
+        "name": "Кудайбергенова  Ариет Алтынбековна",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710001",
+        "name": "Мамытбеков Айдарбек Талантбекович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710015",
+        "name": "Машова Айтурган Талантбековна",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710014",
+        "name": "Нааматов Эльдияр Эрмекович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248715027",
+        "name": "Разаков Дамир Разакович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710010",
+        "name": "Рахманов Барсбек Джантаевич",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710009",
+        "name": "Рахманов Эртабылды Шүкүрбекович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710002",
+        "name": "Рыскулбеков Нурдин Марлесович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710016",
+        "name": "Саатов Жумабек Анаркулович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710020",
+        "name": "Сатыбалдиев Алимансур Юрусланбекович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710012",
+        "name": "Туголбеков Аман Адилетович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710022",
+        "name": "Туголбаев Чингиз Нурдинович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248710006",
+        "name": "Турдубеков Сардарбек Уланбекович",
+        "course": "3",
+        "group": "CSC-24",
+        "passed": false,
+        "curator": "Асакеев Айдар"
+    },
+    {
+        "id": "248711009",
+        "name": "Абдыкадыров Амантур Мэрланович",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711021",
+        "name": "Акылбекова Айдана Акылбековна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711019",
+        "name": "Алатаев Умар Санатбекович",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711025",
+        "name": "Анарбекова Арууке Ильгизовна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711006",
+        "name": "Байзакова Диана Нурлановна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711018",
+        "name": "Бакирова Баянсулуу Алмазовна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248715063",
+        "name": "Балкабаева Алима Аслановна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711024",
+        "name": "Болотбекова София Тимуровна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711015",
+        "name": "Джаманкеева Алтынай Абдырашидова",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711004",
+        "name": "Дуйшеева Дария Алмазбековна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711002",
+        "name": "Духанин Егор Евгеньевич",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711010",
+        "name": "Кадырова Алия Асановна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711046",
+        "name": "Какитаева Айдай Азатовна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711008",
+        "name": "Камалова Камила Шухратовна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711029",
+        "name": "Ким Яна Вячеславовна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711014",
+        "name": "Кырманчиева Милана Бакытовна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711005",
+        "name": "Мухамедов Султан  Бахтиярович",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711017",
+        "name": "Нурматов Милан Маратович",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711020",
+        "name": "Осконбаева Рания Кувандыковна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711011",
+        "name": "Саматова Мээрим Айбековна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711001",
+        "name": "Токтобекова Алия Данияровна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711007",
+        "name": "Турдуходжаева Николь Эриковна",
+        "course": "3",
+        "group": "DES-24",
+        "passed": false,
+        "curator": "A Мирлан Нурбеков"
+    },
+    {
+        "id": "248711012",
+        "name": "Абдылдаева Аделя",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711035",
+        "name": "Адылбекова Мадина",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711030",
+        "name": "Алишер Акылай",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711038",
+        "name": "Алманбетов Арсен",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711037",
+        "name": "Асанидинова Медина",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711039",
+        "name": "Болотова Амина",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711003",
+        "name": "Жолдошбекова Нурайым",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711033",
+        "name": "Жолдошева Камила",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711048",
+        "name": "Зарылбекова Жаркынай",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711028",
+        "name": "Кубатбеков Эдил",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248712017",
+        "name": "Маликова Адеми Медетовна",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711040",
+        "name": "Мамазова Амира",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711026",
+        "name": "Молдобеков Таир",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711036",
+        "name": "Ниязалиева Арууке",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711047",
+        "name": "Омуралиева Айканыш",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711016",
+        "name": "Режепалиева Айкөкүл",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711034",
+        "name": "Саякбаева Дарика",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711044",
+        "name": "Сонунбекова Милагрес",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711032",
+        "name": "Сооронбекова Сагида",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711031",
+        "name": "Таранчиева Амина",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711042",
+        "name": "Ташынова Дениза",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248711045",
+        "name": "Токтосунов Бекхан",
+        "course": "3",
+        "group": "DES-24В",
+        "passed": false,
+        "curator": "Айжамал Иманкулова"
+    },
+    {
+        "id": "248712005",
+        "name": "Абасова Валида Рафиковна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712012",
+        "name": "Абдылдабекова Бермет Жанарбековна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712007",
+        "name": "Абдышова Айчурок Алмазбековна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "258712026",
+        "name": "Аземова Адель",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712006",
+        "name": "Алымканов Саидрахман Нурбекович",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712016",
+        "name": "Байышова Айканыш Мирлановна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712023",
+        "name": "Балтабаева Айназик Балтабаевна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712009",
+        "name": "Болотов Алибек Нурбекович",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712003",
+        "name": "Джумаев Тимур Камилевич",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712004",
+        "name": "Жумашова Нигора Мадияровна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712011",
+        "name": "Зарипбеков Улукбек Муктарбекович",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712015",
+        "name": "Каимова Алтынай Мухтаржановна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712021",
+        "name": "Кубанычбекова Ширин Илгизовна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712019",
+        "name": "Мамасидиков Умар Ахлидинович",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712014",
+        "name": "Маликова Мадина Маликовна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712022",
+        "name": "Октяброва Аделя Алишеровна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712020",
+        "name": "Садырбаев Азирет Азизович",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "258712025",
+        "name": "Сооронбаев Иман",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712001",
+        "name": "Туркменов Нурсултан Торобекович",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712008",
+        "name": "Турусбеков Нурдоолот",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "258712027",
+        "name": "Тугелов Акбар",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712013",
+        "name": "Эргешбекова Аэлита Максатбековна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712018",
+        "name": "Эргешева Айбике Сыргаковна",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248712024",
+        "name": "Эрмухамед Эркайым",
+        "course": "3",
+        "group": "ACO-24",
+        "passed": false,
+        "curator": "Жайгуль Сейталиева"
+    },
+    {
+        "id": "248714017",
+        "name": "Абдулказиева Айтурган Мелисовна",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714019",
+        "name": "Абдыраева Марва Бакытбековна",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248710011",
+        "name": "Абдылдаев Жантай Бактыбекович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714027",
+        "name": "Адильханов Азирет Максатович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714015",
+        "name": "Амантуров Ислам Амантурович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714069",
+        "name": "Ахматалиева Аиза Мамытовна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714051",
+        "name": "Бекбаев Амир Эдильевич",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714013",
+        "name": "Болотбеков Касым Даниярович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714005",
+        "name": "Дуйшембеков Даниэль Нурланович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714003",
+        "name": "Жумабаева Арууке Алмазбековна",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714010",
+        "name": "Жумакеев Ынтымак Кубанычович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714021",
+        "name": "Маматова Ализа Мирлановна",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714073",
+        "name": "Муратова Элина Мирбековна",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714064",
+        "name": "Нурлан Алим",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248715003",
+        "name": "Насирдинов Умар Айбекович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714004",
+        "name": "Орозбаева Аделя",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714014",
+        "name": "Сапарбекова Элина Амантуровна",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714018",
+        "name": "Суйунбаева Хадиче Зарипбековна",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714012",
+        "name": "Тагаев Чынгыз Таттубекович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714022",
+        "name": "Тойчубеков Хамза Уланбекович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714008",
+        "name": "Узенов Айдар Талантович",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714002",
+        "name": "Чоткараева Алия Мелисовна",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714016",
+        "name": "Шайбеков Салахиддин Аширалиевич",
+        "course": "3",
+        "group": "MAR24A",
+        "passed": false,
+        "curator": "Гүлшайыр Саматова"
+    },
+    {
+        "id": "248714001",
+        "name": "Абдылдаева Адеми Маратовна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714024",
+        "name": "Алимбекова Хадича Данияровна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714036",
+        "name": "Амиров Арсен Ильязович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714028",
+        "name": "Асанов Атилла Арстанбекович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714039",
+        "name": "Гульжигитов Урмат Нурдинович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714030",
+        "name": "Давутов Атай Шамильевич",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714035",
+        "name": "Добушбекова Нурбийке Добушбековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248711013",
+        "name": "Джолдошбаев Алибек Фархадович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714025",
+        "name": "Керимкулова Айжана Жылдызбековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714044",
+        "name": "Ибрагимов Ясин Султанович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714031",
+        "name": "Кабаева Альбина Чынгызовна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "258714100",
+        "name": "Бакиров Урмат",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714041",
+        "name": "Камчыбеков Эрбол Мирланович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714046",
+        "name": "Картанова Айчурок Кылычбековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714029",
+        "name": "Маматов Илимбек Маматович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714043",
+        "name": "Набидинова Ракыя Аззамжановна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714037",
+        "name": "Омурзакова Мырзаайым Канатбековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714040",
+        "name": "Рысбаев Нурбол Адилович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714038",
+        "name": "Салаватов Амир Салаватович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714032",
+        "name": "Тойгонова Бактыгуль Омурбековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714034",
+        "name": "Эркинбеков Умар Эркинбекович",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714048",
+        "name": "Эркинбекова Элима Эркинбековна",
+        "course": "3",
+        "group": "MAR24Б",
+        "passed": false,
+        "curator": "Aida Abdyrazak"
+    },
+    {
+        "id": "248714059",
+        "name": "Абдымомунов Султан Эрнисович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714071",
+        "name": "Айтбаев Улукбек Канатбекович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248710005",
+        "name": "Ажимаматов Алимуслим Кадырбекович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "NOID-3-MAR-24C-Акжигитов-Нурдөөлөт-Замирбекович",
+        "name": "Акжигитов Нурдөөлөт Замирбекович",
+        "course": "3",
+        "group": "MAR-24C",
+        "passed": false
+    },
+    {
+        "id": "248714050",
+        "name": "Акматова Зайнаб Сталбековна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714056",
+        "name": "Аскеров Баймырза Айбекович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714061",
+        "name": "Ачилов Канымет Жаныбекович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714074",
+        "name": "Ахметова Айбике",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714066",
+        "name": "Ахунбаева Фатима Токтосуновна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714057",
+        "name": "Бектурганова Медина Данияровна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "NOID-3-MAR-24C-Кастаев-Бакай-Бактыбекович",
+        "name": "Кастаев Бакай Бактыбекович",
+        "course": "3",
+        "group": "MAR-24C",
+        "passed": false
+    },
+    {
+        "id": "248714068",
+        "name": "Кененсариева Жамиля Мелисовна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714011",
+        "name": "Котов Илья Михайлович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714055",
+        "name": "Маматкалыкова Асель Жумабековна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714060",
+        "name": "Махмудова Согдиёна Дониёровна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714009",
+        "name": "Мукашова Дениза Бактыбековна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "NOID-3-MAR-24C-Назиров-Мухаммедумар-Канатбекович",
+        "name": "Назиров Мухаммедумар Канатбекович",
+        "course": "3",
+        "group": "MAR-24C",
+        "passed": false
+    },
+    {
+        "id": "248714072",
+        "name": "Осмонов Руслан Максатович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714052",
+        "name": "Сатыбаева Асема Жунусалиевна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "258714098",
+        "name": "Сматов Байэл",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714026",
+        "name": "Талантбеков Адилет Талантбекович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714070",
+        "name": "Токтобекова Бегаим Нурдиновна",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    },
+    {
+        "id": "248714062",
+        "name": "Юсупов Ильмар Тахирович",
+        "course": "3",
+        "group": "MAR24C",
+        "passed": false,
+        "curator": "Гульнура Дыйканбаева"
+    }
+];
 
-        // Группы по курсам
-        const groupsByCourse = {
-            "1": ["ACO-26", "SCA-26A", "FLET-26", "CFL-26"],
-            "2": ["ACO-25", "SCA-25A"],
-            "3": ["ACO-24", "SCA-24A"]
-        };
+        // Группы формируются из реального списка студентов Excel
+        const groupsByCourse = Object.fromEntries(['1','2','3'].map(course => [
+            course,
+            [...new Set(studentsData.filter(s => s.course === course).map(s => s.group))].sort((a,b) => a.localeCompare(b, 'ru'))
+        ]));
 
         let savedStatuses = JSON.parse(localStorage.getItem('fluoro_statuses')) || {};
         studentsData.forEach(s => {
@@ -133,6 +6560,10 @@
             const groups = groupsByCourse[course] || [];
             
             groupSelect.innerHTML = '';
+            const allOpt = document.createElement('option');
+            allOpt.value = '__ALL__';
+            allOpt.textContent = 'Все группы';
+            groupSelect.appendChild(allOpt);
             groups.forEach(g => {
                 const opt = document.createElement('option');
                 opt.value = g;
@@ -151,7 +6582,7 @@
 
             const filtered = studentsData.filter(s => {
                 const matchCourse = s.course === course;
-                const matchGroup = s.group === group;
+                const matchGroup = group === '__ALL__' || s.group === group;
                 const matchQuery = s.name.toLowerCase().includes(query) || s.id.includes(query);
                 return matchCourse && matchGroup && matchQuery;
             });
@@ -166,17 +6597,19 @@
                 const div = document.createElement('div');
                 div.className = "flex items-center justify-between py-3 px-2 hover:bg-gray-50 rounded-lg transition";
                 
+                const safeId = String(student.id).replace(/[^0-9]/g, '');
+                div.className = "flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3 px-2 hover:bg-gray-50 rounded-lg transition";
                 div.innerHTML = `
-                    <div class="min-w-0 flex-1 pr-3">
-                        <p class="font-medium text-gray-800">${student.name}</p>
-                        <p class="text-xs text-gray-500">ID: ${student.id} | Группа: ${student.group}</p>
-                        <p class="text-xs text-indigo-600 mt-1">Куратор: ${student.curator || 'Не указан в Excel'}</p>
+                    <div class="min-w-0">
+                        <p class="font-medium text-gray-800">${escapeHtml(student.name)}</p>
+                        <p class="text-xs text-gray-500 mt-1">ID: ${escapeHtml(student.id)} | Группа: <strong>${escapeHtml(student.group || 'Не указана')}</strong></p>
+                        <p class="text-xs text-gray-500 mt-1">Куратор: <strong>${escapeHtml(student.curator || 'Не указан')}</strong></p>
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-2 shrink-0">
-                        <button type="button" onclick="setPassed('${student.id}', true)" aria-pressed="${student.passed}" class="px-3 py-2 rounded-lg text-sm font-medium transition ${student.passed ? 'bg-green-600 text-white' : 'bg-green-50 text-green-700 border border-green-200 hover:bg-green-100'}">
+                    <div class="flex gap-2 shrink-0">
+                        <button type="button" onclick="setPassed('${safeId}', true)" aria-pressed="${student.passed === true}" class="px-3 py-2 rounded-lg text-sm font-medium transition ${student.passed === true ? 'bg-green-600 text-white ring-2 ring-green-200' : 'bg-green-50 text-green-700 hover:bg-green-100 border border-green-200'}">
                             <i class="fa-solid fa-check"></i> Прошел
                         </button>
-                        <button type="button" onclick="setPassed('${student.id}', false)" aria-pressed="${!student.passed}" class="px-3 py-2 rounded-lg text-sm font-medium transition ${!student.passed ? 'bg-red-600 text-white' : 'bg-red-50 text-red-700 border border-red-200 hover:bg-red-100'}">
+                        <button type="button" onclick="setPassed('${safeId}', false)" aria-pressed="${student.passed === false}" class="px-3 py-2 rounded-lg text-sm font-medium transition ${student.passed === false ? 'bg-red-600 text-white ring-2 ring-red-200' : 'bg-red-50 text-red-700 hover:bg-red-100 border border-red-200'}">
                             <i class="fa-solid fa-xmark"></i> Не прошел
                         </button>
                     </div>
@@ -187,14 +6620,18 @@
             updateAdminStats();
         }
 
-        function setPassed(id, passed) {
-            const student = studentsData.find(s => s.id === id);
-            if (student) {
-                student.passed = passed;
-                savedStatuses[student.id] = passed;
-                localStorage.setItem('fluoro_statuses', JSON.stringify(savedStatuses));
-                renderStudents();
-            }
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+        }
+
+        // Два отдельных действия: установить статус «Прошел» или «Не прошел»
+        function setPassed(id, value) {
+            const student = studentsData.find(s => String(s.id) === String(id));
+            if (!student) return;
+            student.passed = value;
+            savedStatuses[student.id] = value;
+            localStorage.setItem('fluoro_statuses', JSON.stringify(savedStatuses));
+            renderStudents();
         }
 
         function updateAdminStats() {
@@ -222,6 +6659,17 @@
             } else {
                 panel.classList.add('hidden');
             }
+        }
+
+
+        function exportCSV() {
+            const rows = [['ID', 'ФИО', 'Курс', 'Группа', 'Куратор', 'Флюорография']];
+            studentsData.forEach(s => rows.push([s.id, s.name, s.course, s.group, s.curator || 'Не указан', s.passed ? 'Прошел' : 'Не прошел']));
+            const csv = '\uFEFF' + rows.map(row => row.map(value => '"' + String(value).replace(/"/g, '""') + '"').join(';')).join('\r\n');
+            const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'fluorography_statuses.csv'; a.click();
+            URL.revokeObjectURL(url);
         }
 
         function resetData() {
