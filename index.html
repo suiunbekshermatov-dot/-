@@ -6545,10 +6545,65 @@
             [...new Set(studentsData.filter(s => s.course === course).map(s => s.group))].sort((a,b) => a.localeCompare(b, 'ru'))
         ]));
 
-        let savedStatuses = JSON.parse(localStorage.getItem('fluoro_statuses')) || {};
-        studentsData.forEach(s => {
-            if (savedStatuses[s.id] !== undefined) s.passed = savedStatuses[s.id];
-        });
+        // Общая база статусов Supabase Edge Function
+        const FLUORO_FUNCTION_URL = 'https://bxwwemeqabxxkbyxkssw.supabase.co/functions/v1/fluoro-status';
+        const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_qtSmDr__S8jHXQM9_4ngsA_MJROKdMq';
+        let savedStatuses = {};
+        let isSavingStatus = false;
+
+        function getAccessCode() {
+            let code = sessionStorage.getItem('fluoro_access_code');
+            if (!code) {
+                code = prompt('Введите общий код доступа для сотрудников колледжа:');
+                if (code && code.trim()) {
+                    code = code.trim();
+                    sessionStorage.setItem('fluoro_access_code', code);
+                }
+            }
+            return code || '';
+        }
+
+        async function callFluoroFunction(payload) {
+            const code = getAccessCode();
+            if (!code) throw new Error('Для работы сайта нужен код доступа сотрудников.');
+            const response = await fetch(FLUORO_FUNCTION_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_PUBLISHABLE_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_PUBLISHABLE_KEY
+                },
+                body: JSON.stringify({ ...payload, code })
+            });
+            const result = await response.json().catch(() => ({}));
+            if (!response.ok) {
+                if (response.status === 401) {
+                    sessionStorage.removeItem('fluoro_access_code');
+                    throw new Error('Неверный код доступа. Обновите страницу и введите код ещё раз.');
+                }
+                throw new Error(result.error || 'Ошибка подключения к общей базе.');
+            }
+            return result;
+        }
+
+        async function loadRemoteStatuses(showErrors = false) {
+            try {
+                const result = await callFluoroFunction({ action: 'list' });
+                savedStatuses = {};
+                (result.statuses || []).forEach(row => {
+                    savedStatuses[String(row.student_id)] = row.passed === true;
+                });
+                studentsData.forEach(s => {
+                    s.passed = savedStatuses[String(s.id)] === true;
+                });
+                renderStudents();
+                const footer = document.querySelector('footer');
+                if (footer) footer.textContent = 'Ala-Too IT & Business College © 2026 · Общие статусы синхронизируются через защищённую базу';
+            } catch (error) {
+                console.error('Fluorography sync error:', error);
+                if (showErrors) alert(error.message || 'Не удалось загрузить общие статусы.');
+            }
+        }
 
         const courseSelect = document.getElementById('courseSelect');
         const groupSelect = document.getElementById('groupSelect');
@@ -6624,14 +6679,30 @@
             return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
         }
 
-        // Два отдельных действия: установить статус «Прошел» или «Не прошел»
-        function setPassed(id, value) {
+        // Сохранить статус в общей базе и обновить отображение
+        async function setPassed(id, value) {
+            if (isSavingStatus) return;
             const student = studentsData.find(s => String(s.id) === String(id));
             if (!student) return;
+
+            const previousValue = student.passed;
             student.passed = value;
-            savedStatuses[student.id] = value;
-            localStorage.setItem('fluoro_statuses', JSON.stringify(savedStatuses));
             renderStudents();
+            isSavingStatus = true;
+            try {
+                await callFluoroFunction({
+                    student_id: String(student.id),
+                    passed: value
+                });
+                savedStatuses[String(student.id)] = value;
+                await loadRemoteStatuses(false);
+            } catch (error) {
+                student.passed = previousValue;
+                renderStudents();
+                alert(error.message || 'Не удалось сохранить статус. Проверьте соединение.');
+            } finally {
+                isSavingStatus = false;
+            }
         }
 
         function updateAdminStats() {
@@ -6673,20 +6744,17 @@
         }
 
         function resetData() {
-            if (confirm('Сбросить все статусы?')) {
-                localStorage.removeItem('fluoro_statuses');
-                studentsData.forEach(s => s.passed = false);
-                savedStatuses = {};
-                renderStudents();
-            }
+            alert('Сброс общей базы отключён для безопасности. Если нужно исправить ошибочные отметки, измените статус конкретного студента.');
         }
 
         courseSelect.addEventListener('change', updateGroups);
         groupSelect.addEventListener('change', renderStudents);
         searchInput.addEventListener('input', renderStudents);
 
-        // Инициализация при загрузке
+        // Инициализация: загрузить общие статусы и периодически синхронизировать их
         updateGroups();
+        loadRemoteStatuses(true);
+        window.setInterval(() => loadRemoteStatuses(false), 15000);
     </script>
 </body>
 </html>
