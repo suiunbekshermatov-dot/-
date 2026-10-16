@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Учет флюорографии — IT & Business College</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <!-- Шапка -->
+    <header class="bg-indigo-700 text-white shadow-md py-4 px-6">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold flex items-center gap-2">
+                <i class="fa-solid fa-lungs"></i> Флюорография 2026
+            </h1>
+            <button onclick="toggleAdmin()" id="adminBtn" class="bg-indigo-800 hover:bg-indigo-900 text-sm px-3 py-1.5 rounded-lg transition">
+                <i class="fa-solid fa-lock"></i> Админ
+            </button>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="max-w-4xl mx-auto p-4 w-full flex-grow">
+        
+        <!-- Секция поиска студента -->
+        <div id="studentSection" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6">
+            <h2 class="text-lg font-semibold mb-4 text-gray-700">Отметить прохождение флюорографии</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Выберите группу:</label>
+                    <select id="groupSelect" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <option value="ACO-26">ACO-26 (Куратор: Nurzhan Nazarkulova)</option>
+                        <option value="SCA-26A">SCA-26A (Куратор: Dosbol Aliev)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Поиск по ФИО или Student ID:</label>
+                    <input type="text" id="searchInput" placeholder="Например: Акбаров или 268712020" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 outline-none">
+                </div>
+            </div>
+
+            <!-- Список студентов -->
+            <div id="studentsList" class="divide-y divide-gray-100 max-h-96 overflow-y-auto border border-gray-100 rounded-xl p-2">
+                <!-- Заполняется через JS -->
+            </div>
+        </div>
+
+        <!-- Панель Администратора (скрыта по умолчанию) -->
+        <div id="adminPanel" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-semibold text-gray-700"><i class="fa-solid fa-chart-pie text-indigo-600"></i> Статистика и отчеты</h2>
+                <button onclick="resetData()" class="text-red-600 hover:text-red-800 text-sm font-medium">Сбросить все статусы</button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                <div class="bg-indigo-50 p-4 rounded-xl border border-indigo-100">
+                    <p class="text-xs text-indigo-500 font-semibold uppercase">Всего студентов</p>
+                    <p id="totalCount" class="text-2xl font-bold text-indigo-700">0</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded-xl border border-green-100">
+                    <p class="text-xs text-green-500 font-semibold uppercase">Прошли</p>
+                    <p id="passedCount" class="text-2xl font-bold text-green-700">0</p>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                    <p class="text-xs text-orange-500 font-semibold uppercase">Осталось</p>
+                    <p id="leftCount" class="text-2xl font-bold text-orange-700">0</p>
+                </div>
+            </div>
+
+            <!-- Прогресс бар -->
+            <div class="w-full bg-gray-200 rounded-full h-4 mb-2 overflow-hidden">
+                <div id="progressBar" class="bg-green-600 h-4 transition-all duration-500" style="width: 0%"></div>
+            </div>
+            <p id="progressText" class="text-sm text-gray-500 text-right">0% выполнено</p>
+        </div>
+
+    </main>
+
+    <!-- Подвал -->
+    <footer class="text-center py-4 text-xs text-gray-400">
+        Ala-Too IT & Business College &copy; 2026
+    </footer>
+
+    <script>
+        // Данные студентов на основе таблицы
+        const studentsData = [
+            // ACO-26
+            { id: "268712020", name: "Акбаров Ихсан Шухратович", group: "ACO-26", passed: false },
+            { id: "268712015", name: "Айбекова Жанара Айбековна", group: "ACO-26", passed: false },
+            { id: "268712002", name: "Алманбетова Гульназ Айбековна", group: "ACO-26", passed: false },
+            { id: "268712012", name: "Асылбекова Аделя Асылбековна", group: "ACO-26", passed: false },
+            { id: "268712018", name: "Байышева Аяна Рустамовна", group: "ACO-26", passed: false },
+            { id: "268712022", name: "Бекташова Сауле Асылбековна", group: "ACO-26", passed: false },
+            { id: "268712010", name: "Божокоев Жантай Максатович", group: "ACO-26", passed: false },
+            { id: "268712017", name: "Горчевский Ярослав Владимирович", group: "ACO-26", passed: false },
+            { id: "268712003", name: "Джумгалбеков Арслан", group: "ACO-26", passed: false },
+            { id: "268712025", name: "Замирбекова Салия Замирбековна", group: "ACO-26", passed: false },
+            { id: "268712004", name: "Кадыркулова Кунайым Шергазиевна", group: "ACO-26", passed: false },
+            { id: "268712016", name: "Кенжебекова Сезим Мирбековна", group: "ACO-26", passed: false },
+            { id: "268712011", name: "Климбекова Сэдеф Эдилевна", group: "ACO-26", passed: false },
+            { id: "268712007", name: "Койчукеев Атай Майрамбекович", group: "ACO-26", passed: false },
+            { id: "268712013", name: "Кубанычбекова Алия Максатовна", group: "ACO-26", passed: false },
+            { id: "268712019", name: "Кылычбеков Амир Бусурманкулович", group: "ACO-26", passed: false },
+            { id: "268712014", name: "Ловаза Медина Мухамеевна", group: "ACO-26", passed: false },
+            { id: "268712024", name: "Темирбекова Аяна Эрланова", group: "ACO-26", passed: false },
+            { id: "268712021", name: "Мусаев Хазрат Кайратович", group: "ACO-26", passed: false },
+            { id: "268712008", name: "Манапбаева Арууке Дженишбековна", group: "ACO-26", passed: false },
+            { id: "268712023", name: "Мамыров Ураим Курмангазыевич", group: "ACO-26", passed: false },
+            { id: "268712009", name: "Марсов Ербол Ерланович", group: "ACO-26", passed: false },
+            { id: "268712006", name: "Мирзаева Лейла Вилаятовна", group: "ACO-26", passed: false },
+            { id: "268712001", name: "Фаридов Ариф Фаридович", group: "ACO-26", passed: false },
+            
+            // SCA-26A
+            { id: "268715001", name: "Абдыкайымов Белек", group: "SCA-26A", passed: false },
+            { id: "268715003", name: "Аманов Адилет", group: "SCA-26A", passed: false },
+            { id: "268715012", name: "Аманова Медина", group: "SCA-26A", passed: false },
+            { id: "268715023", name: "Бакаев Абакир", group: "SCA-26A", passed: false },
+            { id: "268715020", name: "Бектуров Алихан", group: "SCA-26A", passed: false },
+            { id: "268715005", name: "Берюев Эмирхан", group: "SCA-26A", passed: false },
+            { id: "268715032", name: "Гуламов Акбар", group: "SCA-26A", passed: false },
+            { id: "268715021", name: "Имашбеков Амир", group: "SCA-26A", passed: false },
+            { id: "268715010", name: "Исмаилов Актан", group: "SCA-26A", passed: false },
+            { id: "268715014", name: "Канатбеков Эдил", group: "SCA-26A", passed: false },
+            { id: "268715013", name: "Койбагаров Кайрат", group: "SCA-26A", passed: false },
+            { id: "268715015", name: "Кыдыкбаев Эрмек", group: "SCA-26A", passed: false }
+        ];
+
+        // Загрузка сохраненных данных из localStorage браузера
+        let savedStatuses = JSON.parse(localStorage.getItem('fluoro_statuses')) || {};
+        studentsData.forEach(s => {
+            if (savedStatuses[s.id] !== undefined) {
+                s.passed = savedStatuses[s.id];
+            }
+        });
+
+        const groupSelect = document.getElementById('groupSelect');
+        const searchInput = document.getElementById('searchInput');
+        const studentsList = document.getElementById('studentsList');
+
+        function renderStudents() {
+            const selectedGroup = groupSelect.value;
+            const query = searchInput.value.toLowerCase().trim();
+
+            studentsList.innerHTML = '';
+
+            const filtered = studentsData.filter(s => {
+                const matchGroup = s.group === selectedGroup;
+                const matchQuery = s.name.toLowerCase().includes(query) || s.id.includes(query);
+                return matchGroup && matchQuery;
+            });
+
+            if (filtered.length === 0) {
+                studentsList.innerHTML = '<p class="text-center text-gray-400 py-4">Студенты не найдены</p>';
+                return;
+            }
+
+            filtered.forEach(student => {
+                const div = document.createElement('div');
+                div.className = "flex items-center justify-between py-3 px-2 hover:bg-gray-50 rounded-lg transition";
+                
+                div.innerHTML = `
+                    <div>
+                        <p class="font-medium text-gray-800">${student.name}</p>
+                        <p class="text-xs text-gray-400">ID: ${student.id}</p>
+                    </div>
+                    <button onclick="togglePassed('${student.id}')" class="px-4 py-1.5 rounded-lg text-sm font-medium transition ${student.passed ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}">
+                        ${student.passed ? '<i class="fa-solid fa-check"></i> Прошел' : 'Не прошел'}
+                    </button>
+                `;
+                studentsList.appendChild(div);
+            });
+
+            updateAdminStats();
+        }
+
+        function togglePassed(id) {
+            const student = studentsData.find(s => s.id === id);
+            if (student) {
+                student.passed = !student.passed;
+                savedStatuses[student.id] = student.passed;
+                localStorage.setItem('fluoro_statuses', JSON.stringify(savedStatuses));
+                renderStudents();
+            }
+        }
+
+        function updateAdminStats() {
+            const total = studentsData.length;
+            const passed = studentsData.filter(s => s.passed).length;
+            const left = total - passed;
+            const percent = total > 0 ? Math.round((passed / total) * 100) : 0;
+
+            document.getElementById('totalCount').innerText = total;
+            document.getElementById('passedCount').innerText = passed;
+            document.getElementById('leftCount').innerText = left;
+            document.getElementById('progressBar').style.width = percent + '%';
+            document.getElementById('progressText').innerText = percent + '% выполнено';
+        }
+
+        function toggleAdmin() {
+            const panel = document.getElementById('adminPanel');
+            if (panel.classList.contains('hidden')) {
+                const password = prompt('Введите пароль администратора (по умолчанию: 123):');
+                if (password === '123' || password === 'admin') {
+                    panel.classList.remove('hidden');
+                } else if (password !== null) {
+                    alert('Неверный пароль!');
+                }
+            } else {
+                panel.classList.add('hidden');
+            }
+        }
+
+        function resetData() {
+            if (confirm('Вы уверены, что хотите сбросить все статусы?')) {
+                localStorage.removeItem('fluoro_statuses');
+                studentsData.forEach(s => s.passed = false);
+                savedStatuses = {};
+                renderStudents();
+            }
+        }
+
+        groupSelect.addEventListener('change', renderStudents);
+        searchInput.addEventListener('input', renderStudents);
+
+        // Первый запуск
+        renderStudents();
+    </script>
+</body>
+</html>
