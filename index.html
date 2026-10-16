@@ -15,7 +15,7 @@
             <h1 class="text-xl font-bold flex items-center gap-2">
                 <i class="fa-solid fa-lungs"></i> Флюорография 2026
             </h1>
-            <button onclick="toggleAdmin()" id="adminBtn" class="bg-indigo-800 hover:bg-indigo-900 text-sm px-3 py-1.5 rounded-lg transition">
+            <button onclick="toggleAdmin()" class="bg-indigo-800 hover:bg-indigo-900 text-sm px-3 py-1.5 rounded-lg transition">
                 <i class="fa-solid fa-lock"></i> Админ
             </button>
         </div>
@@ -24,21 +24,28 @@
     <!-- Основной контент -->
     <main class="max-w-4xl mx-auto p-4 w-full flex-grow">
         
-        <!-- Секция поиска студента -->
-        <div id="studentSection" class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6">
+        <!-- Секция выбора и поиска -->
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6">
             <h2 class="text-lg font-semibold mb-4 text-gray-700">Отметить прохождение флюорографии</h2>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-600 mb-1">Выберите группу:</label>
-                    <select id="groupSelect" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 outline-none">
-                        <option value="ACO-26">ACO-26 (Куратор: Nurzhan Nazarkulova)</option>
-                        <option value="SCA-26A">SCA-26A (Куратор: Dosbol Aliev)</option>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Курс:</label>
+                    <select id="courseSelect" onchange="updateGroups()" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <option value="1">1 Курс</option>
+                        <option value="2">2 Курс</option>
+                        <option value="3">3 Курс</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-600 mb-1">Поиск по ФИО или Student ID:</label>
-                    <input type="text" id="searchInput" placeholder="Например: Акбаров или 268712020" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 outline-none">
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Группа:</label>
+                    <select id="groupSelect" class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 outline-none">
+                        <!-- Заполняется динамически -->
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-600 mb-1">Поиск по ФИО или ID:</label>
+                    <input type="text" id="searchInput" placeholder="Введите имя или ID..." class="w-full border border-gray-300 rounded-lg p-2.5 focus:ring-2 focus:ring-indigo-500 outline-none">
                 </div>
             </div>
 
@@ -48,10 +55,10 @@
             </div>
         </div>
 
-        <!-- Панель Администратора (скрыта по умолчанию) -->
+        <!-- Панель Администратора -->
         <div id="adminPanel" class="hidden bg-white p-6 rounded-2xl shadow-sm border border-gray-100 mb-6">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-semibold text-gray-700"><i class="fa-solid fa-chart-pie text-indigo-600"></i> Статистика и отчеты</h2>
+                <h2 class="text-lg font-semibold text-gray-700"><i class="fa-solid fa-chart-pie text-indigo-600"></i> Общая статистика</h2>
                 <button onclick="resetData()" class="text-red-600 hover:text-red-800 text-sm font-medium">Сбросить все статусы</button>
             </div>
 
@@ -70,7 +77,6 @@
                 </div>
             </div>
 
-            <!-- Прогресс бар -->
             <div class="w-full bg-gray-200 rounded-full h-4 mb-2 overflow-hidden">
                 <div id="progressBar" class="bg-green-600 h-4 transition-all duration-500" style="width: 0%"></div>
             </div>
@@ -85,71 +91,72 @@
     </footer>
 
     <script>
-        // Данные студентов на основе таблицы
+        // База данных студентов по курсам и группам
         const studentsData = [
-            // ACO-26
-            { id: "268712020", name: "Акбаров Ихсан Шухратович", group: "ACO-26", passed: false },
-            { id: "268712015", name: "Айбекова Жанара Айбековна", group: "ACO-26", passed: false },
-            { id: "268712002", name: "Алманбетова Гульназ Айбековна", group: "ACO-26", passed: false },
-            { id: "268712012", name: "Асылбекова Аделя Асылбековна", group: "ACO-26", passed: false },
-            { id: "268712018", name: "Байышева Аяна Рустамовна", group: "ACO-26", passed: false },
-            { id: "268712022", name: "Бекташова Сауле Асылбековна", group: "ACO-26", passed: false },
-            { id: "268712010", name: "Божокоев Жантай Максатович", group: "ACO-26", passed: false },
-            { id: "268712017", name: "Горчевский Ярослав Владимирович", group: "ACO-26", passed: false },
-            { id: "268712003", name: "Джумгалбеков Арслан", group: "ACO-26", passed: false },
-            { id: "268712025", name: "Замирбекова Салия Замирбековна", group: "ACO-26", passed: false },
-            { id: "268712004", name: "Кадыркулова Кунайым Шергазиевна", group: "ACO-26", passed: false },
-            { id: "268712016", name: "Кенжебекова Сезим Мирбековна", group: "ACO-26", passed: false },
-            { id: "268712011", name: "Климбекова Сэдеф Эдилевна", group: "ACO-26", passed: false },
-            { id: "268712007", name: "Койчукеев Атай Майрамбекович", group: "ACO-26", passed: false },
-            { id: "268712013", name: "Кубанычбекова Алия Максатовна", group: "ACO-26", passed: false },
-            { id: "268712019", name: "Кылычбеков Амир Бусурманкулович", group: "ACO-26", passed: false },
-            { id: "268712014", name: "Ловаза Медина Мухамеевна", group: "ACO-26", passed: false },
-            { id: "268712024", name: "Темирбекова Аяна Эрланова", group: "ACO-26", passed: false },
-            { id: "268712021", name: "Мусаев Хазрат Кайратович", group: "ACO-26", passed: false },
-            { id: "268712008", name: "Манапбаева Арууке Дженишбековна", group: "ACO-26", passed: false },
-            { id: "268712023", name: "Мамыров Ураим Курмангазыевич", group: "ACO-26", passed: false },
-            { id: "268712009", name: "Марсов Ербол Ерланович", group: "ACO-26", passed: false },
-            { id: "268712006", name: "Мирзаева Лейла Вилаятовна", group: "ACO-26", passed: false },
-            { id: "268712001", name: "Фаридов Ариф Фаридович", group: "ACO-26", passed: false },
-            
-            // SCA-26A
-            { id: "268715001", name: "Абдыкайымов Белек", group: "SCA-26A", passed: false },
-            { id: "268715003", name: "Аманов Адилет", group: "SCA-26A", passed: false },
-            { id: "268715012", name: "Аманова Медина", group: "SCA-26A", passed: false },
-            { id: "268715023", name: "Бакаев Абакир", group: "SCA-26A", passed: false },
-            { id: "268715020", name: "Бектуров Алихан", group: "SCA-26A", passed: false },
-            { id: "268715005", name: "Берюев Эмирхан", group: "SCA-26A", passed: false },
-            { id: "268715032", name: "Гуламов Акбар", group: "SCA-26A", passed: false },
-            { id: "268715021", name: "Имашбеков Амир", group: "SCA-26A", passed: false },
-            { id: "268715010", name: "Исмаилов Актан", group: "SCA-26A", passed: false },
-            { id: "268715014", name: "Канатбеков Эдил", group: "SCA-26A", passed: false },
-            { id: "268715013", name: "Койбагаров Кайрат", group: "SCA-26A", passed: false },
-            { id: "268715015", name: "Кыдыкбаев Эрмек", group: "SCA-26A", passed: false }
+            // 1 Курс
+            { id: "268712020", name: "Акбаров Ихсан Шухратович", course: "1", group: "ACO-26", passed: false },
+            { id: "268712015", name: "Айбекова Жанара Айбековна", course: "1", group: "ACO-26", passed: false },
+            { id: "268712002", name: "Алманбетова Гульназ Айбековна", course: "1", group: "ACO-26", passed: false },
+            { id: "268715001", name: "Абдыкайымов Белек", course: "1", group: "SCA-26A", passed: false },
+            { id: "268715003", name: "Аманов Адилет", course: "1", group: "SCA-26A", passed: false },
+            { id: "268716005", name: "Гладков Мирон", course: "1", group: "FLET-26", passed: false },
+            { id: "268716007", name: "Жакшылыкова Умай", course: "1", group: "FLET-26", passed: false },
+            { id: "268717021", name: "Шералиев Арсен", course: "1", group: "CFL-26", passed: false },
+            { id: "268717022", name: "Ыманкулов Ырыскелди", course: "1", group: "CFL-26", passed: false },
+
+            // 2 Курс (примеры групп)
+            { id: "258712001", name: "Бакытов Эльдар", course: "2", group: "ACO-25", passed: false },
+            { id: "258712002", name: "Касымова Айпери", course: "2", group: "ACO-25", passed: false },
+            { id: "258715001", name: "Сагынбеков Дастан", course: "2", group: "SCA-25A", passed: false },
+
+            // 3 Курс (примеры групп)
+            { id: "248712001", name: "Усенов Бектур", course: "3", group: "ACO-24", passed: false },
+            { id: "248715001", name: "Жумагулов Тимур", course: "3", group: "SCA-24A", passed: false }
         ];
 
-        // Загрузка сохраненных данных из localStorage браузера
+        // Группы по курсам
+        const groupsByCourse = {
+            "1": ["ACO-26", "SCA-26A", "FLET-26", "CFL-26"],
+            "2": ["ACO-25", "SCA-25A"],
+            "3": ["ACO-24", "SCA-24A"]
+        };
+
         let savedStatuses = JSON.parse(localStorage.getItem('fluoro_statuses')) || {};
         studentsData.forEach(s => {
-            if (savedStatuses[s.id] !== undefined) {
-                s.passed = savedStatuses[s.id];
-            }
+            if (savedStatuses[s.id] !== undefined) s.passed = savedStatuses[s.id];
         });
 
+        const courseSelect = document.getElementById('courseSelect');
         const groupSelect = document.getElementById('groupSelect');
         const searchInput = document.getElementById('searchInput');
         const studentsList = document.getElementById('studentsList');
 
+        function updateGroups() {
+            const course = courseSelect.value;
+            const groups = groupsByCourse[course] || [];
+            
+            groupSelect.innerHTML = '';
+            groups.forEach(g => {
+                const opt = document.createElement('option');
+                opt.value = g;
+                opt.textContent = g;
+                groupSelect.appendChild(opt);
+            });
+            renderStudents();
+        }
+
         function renderStudents() {
-            const selectedGroup = groupSelect.value;
+            const course = courseSelect.value;
+            const group = groupSelect.value;
             const query = searchInput.value.toLowerCase().trim();
 
             studentsList.innerHTML = '';
 
             const filtered = studentsData.filter(s => {
-                const matchGroup = s.group === selectedGroup;
+                const matchCourse = s.course === course;
+                const matchGroup = s.group === group;
                 const matchQuery = s.name.toLowerCase().includes(query) || s.id.includes(query);
-                return matchGroup && matchQuery;
+                return matchCourse && matchGroup && matchQuery;
             });
 
             if (filtered.length === 0) {
@@ -164,7 +171,7 @@
                 div.innerHTML = `
                     <div>
                         <p class="font-medium text-gray-800">${student.name}</p>
-                        <p class="text-xs text-gray-400">ID: ${student.id}</p>
+                        <p class="text-xs text-gray-400">ID: ${student.id} | Группа: ${student.group}</p>
                     </div>
                     <button onclick="togglePassed('${student.id}')" class="px-4 py-1.5 rounded-lg text-sm font-medium transition ${student.passed ? 'bg-green-100 text-green-700 hover:bg-green-200' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}">
                         ${student.passed ? '<i class="fa-solid fa-check"></i> Прошел' : 'Не прошел'}
@@ -202,7 +209,7 @@
         function toggleAdmin() {
             const panel = document.getElementById('adminPanel');
             if (panel.classList.contains('hidden')) {
-                const password = prompt('Введите пароль администратора (по умолчанию: 123):');
+                const password = prompt('Введите пароль администратора:');
                 if (password === '123' || password === 'admin') {
                     panel.classList.remove('hidden');
                 } else if (password !== null) {
@@ -214,7 +221,7 @@
         }
 
         function resetData() {
-            if (confirm('Вы уверены, что хотите сбросить все статусы?')) {
+            if (confirm('Сбросить все статусы?')) {
                 localStorage.removeItem('fluoro_statuses');
                 studentsData.forEach(s => s.passed = false);
                 savedStatuses = {};
@@ -222,11 +229,12 @@
             }
         }
 
+        courseSelect.addEventListener('change', updateGroups);
         groupSelect.addEventListener('change', renderStudents);
         searchInput.addEventListener('input', renderStudents);
 
-        // Первый запуск
-        renderStudents();
+        // Инициализация при загрузке
+        updateGroups();
     </script>
 </body>
 </html>
