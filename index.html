@@ -6554,7 +6554,7 @@
         function getAccessCode() {
             let code = sessionStorage.getItem('fluoro_access_code');
             if (!code) {
-                code = prompt('Введите общий код доступа для сотрудников колледжа:');
+                code = prompt('Для изменения статуса введите код сотрудников колледжа:');
                 if (code && code.trim()) {
                     code = code.trim();
                     sessionStorage.setItem('fluoro_access_code', code);
@@ -6564,8 +6564,10 @@
         }
 
         async function callFluoroFunction(payload) {
-            const code = getAccessCode();
-            if (!code) throw new Error('Для работы сайта нужен код доступа сотрудников.');
+            // Просмотр статусов доступен без кода; код запрашивается только при изменении.
+            const isReadOnlyRequest = payload && payload.action === 'list';
+            const code = isReadOnlyRequest ? '' : getAccessCode();
+            if (!isReadOnlyRequest && !code) throw new Error('Для изменения статуса нужен код сотрудников.');
             const response = await fetch(FLUORO_FUNCTION_URL, {
                 method: 'POST',
                 headers: {
@@ -6573,11 +6575,11 @@
                     'apikey': SUPABASE_PUBLISHABLE_KEY,
                     'Authorization': 'Bearer ' + SUPABASE_PUBLISHABLE_KEY
                 },
-                body: JSON.stringify({ ...payload, code })
+                body: JSON.stringify(isReadOnlyRequest ? payload : { ...payload, code })
             });
             const result = await response.json().catch(() => ({}));
             if (!response.ok) {
-                if (response.status === 401) {
+                if (response.status === 401 && !isReadOnlyRequest) {
                     sessionStorage.removeItem('fluoro_access_code');
                     throw new Error('Неверный код доступа. Обновите страницу и введите код ещё раз.');
                 }
